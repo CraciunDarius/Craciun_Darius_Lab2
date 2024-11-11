@@ -19,5 +19,8 @@ namespace Craciun_Darius_Lab2.Models
         public Author? Author { get; set; }
         
         public string AuthorFullName => Author != null ? $"{Author.FirstName} {Author.LastName}" : "Unknown";
+        
+        public ICollection<Borrowing>? Borrowings { get; set; }
+        public ICollection<BookCategory>? BookCategories { get; set; }
     }
 }
