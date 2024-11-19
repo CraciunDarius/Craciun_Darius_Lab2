@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Craciun_Darius_Lab2.Data;
 using Craciun_Darius_Lab2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Craciun_Darius_Lab2.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
     public class EditModel : BookCategoriesPageModel
     {
         private readonly Craciun_Darius_Lab2.Data.Craciun_Darius_Lab2Context _context;

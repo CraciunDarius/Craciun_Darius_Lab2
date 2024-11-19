@@ -3,6 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Craciun_Darius_Lab2.Data;
 using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy =>
+   policy.RequireRole("Admin"));
+});
 
 // Add services to the container.
 builder.Services.AddRazorPages(options =>
@@ -10,6 +15,10 @@ builder.Services.AddRazorPages(options =>
     options.Conventions.AuthorizeFolder("/Books");
     options.Conventions.AllowAnonymousToPage("/Books/Index");
     options.Conventions.AllowAnonymousToPage("/Books/Details");
+    options.Conventions.AuthorizeFolder("/Members", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/Publishers", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/Categories", "AdminPolicy");
+
 });
 builder.Services.AddDbContext<Craciun_Darius_Lab2Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Craciun_Darius_Lab2Context") ?? throw new InvalidOperationException("Connection string 'Craciun_Darius_Lab2Context' not found.")));
